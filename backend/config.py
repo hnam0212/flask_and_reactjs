@@ -8,12 +8,15 @@ BASEDIR = os.path.dirname(os.path.realpath(__file__))
 
 
 class Config:
-    SECRT_KEY = os.getenv("SECRT_KEY")
-    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or "sqlite:///" + os.path.join(
+        BASEDIR, "app.db"
+    )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    FLASK_APP = "main.py"
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URL = "sqlite:///" + os.path.join(BASEDIR, "dev.db")
     DEBUG = True
     SQLALCHEMY_ECHO = True
 
